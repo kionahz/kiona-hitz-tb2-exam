@@ -17,11 +17,11 @@ The `helpers.py` python script in the src folder contains two definitions that m
 ## Instructions to run my app
 1. Clone my repository in a location of your choice
 ```
-git clone https://github.com/shaq31415926/sarah-haq-tbii-exam.git
+git clone https://github.com/kionahz/kiona-hitz-tb2-exam.git
 ```
 2. Change the directory:
 ```
-cd sarah-haq-tbii-exam
+cd kiona-hitz-tb2-exam
 ```
 
 3. Run the code
