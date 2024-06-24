@@ -1,6 +1,7 @@
 # Kiona Hitz Tech Basic 2 Exam
 
-This repository contains my Tech Basics II Exam Project code as well as the report. 
+This repository contains my Tech Basics II Exam Project code 
+as well as the report and a demonstration video in the corresponding folder. 
 
 It is an app, where you can book timeslots for the Video Studio at the Leuphana University Lüneburg. 
 Feel free to click through the pages of this MVP and get the feeling of a beautifully designed GUI 
@@ -17,12 +18,11 @@ git clone https://github.com/kionahz/kiona-hitz-tb2-exam.git
 cd kiona-hitz-tb2-exam
 ```
 
-3. Run the code
-Mac:
+3. Run the code using Mac:
 ```
 python3 app.py
 ```
-Windows:
+3. Run the code using Windows:
 ```
 python app.py
 ```
