@@ -415,6 +415,8 @@ def load_page_persdata():
     global card_label, card_image, blank_image
     global first_name_entry, last_name_entry, email_entry, library_entry, address_entry, birthday_entry
 
+    clear_widgets(root)
+
     # create the Personal Data Page frame
     # page_persdata = tk.Frame(root, bg=bg_color)
     # page_persdata.place(x=0, y=0, relwidth=1, relheight=1)
