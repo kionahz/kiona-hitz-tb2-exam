@@ -1,9 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-from tkinter import messagebox
 from datetime import date, timedelta
-
-# import definitions from source files
+from tkinter import messagebox
 from src.helpers import clear_widgets
 
 # define color variables
@@ -12,6 +10,7 @@ bg_darker_color = '#BFBFBF'
 button_color = '#D0CDC6'
 button_selected_color = '#8C6E5D'
 button_cta_color = '#B8A594'
+font_color = '#2F2621'
 
 # define font variables
 font_title1 = 'arial 50 bold'
@@ -19,15 +18,17 @@ font_title2 = 'arial 30 bold'
 font_heading1 = 'arial 18 bold'
 font_heading2 = 'arial 15 bold'
 font_text = 'arial 15'
-font_color = '#2F2621'
 
 # definition of global data variables, to ensure that the variables can be changed inside of functions
-# calendar page
 # get the current week as an integer
 today = date.today()
 calendar_week = int(today.strftime("%W"))
 monday = today - timedelta(days=today.weekday())
+
+# set up an empty string to later fill with the clicked button timeslots
 buttons_string = ''
+# create list to store which time slots where clicked
+clicked_timeslots = []
 
 # personal data page
 firstname = ''
@@ -37,40 +38,24 @@ library = ''
 address = ''
 birthday = ''
 
+# will be used in the personal data page to show the library card
 card_visibility = False
-
-
-# destroy the Welcome page and open the Calendar Page
-def press_start_page_calendar():
-    clear_widgets(root)
-    load_page_calendar()
 
 
 # load the Welcome Page
 def load_page_welcome():
-    # login button and create user button
-    # User in db hinterlegen
-    # user mit db vergleichen
-    # admin bekommt extra button zum drucken der tabelle
-    #
-
-    # Welcome label
-    """welcome_label = tk.Label(root, text='Welcome to the\nVideo Studio\nCalendar\nPress REC to begin',
-                             font=font_heading2, bg='black', fg='white')
-    welcome_label.place(relx=0.598, rely=0.5, relwidth=0.14, relheight=0.16, anchor='center')"""
-
-    # Main Title
+    # main title
     main_title1 = tk.Label(root, text='Welcome to the\nVIDEO STUDIO\nCalendar\n\n',
-                            font=font_title1, bg='white', fg=font_color)
+                           font=font_title1, bg='white', fg=font_color)
     main_title1.place(relx=0.02, rely=0.05, relwidth=0.4, relheight=0.6)
 
     main_title2 = tk.Label(root, text='Here you can book\ntimeslots for the\nVideo Studio at the\n'
-                                       'Leuphana University\nLüneburg\n\n'
-                                       'Press REC to begin',
-                            font=font_title2, bg='white', fg=font_color)
+                                      'Leuphana University\nLüneburg\n\n'
+                                      'Press REC to begin',
+                           font=font_title2, bg='white', fg=font_color)
     main_title2.place(relx=0.02, rely=0.4, relwidth=0.4, relheight=0.6)
 
-    # create Play Button with a photo as the button
+    # create play button with a photo as the button
     # open image play button
     open_play_image = Image.open('images/record_button.png')
     # resize image
@@ -86,7 +71,7 @@ def load_page_welcome():
                             cursor='hand2',
                             activebackground='black',
                             activeforeground='white',
-                            command=lambda: press_start_page_calendar(),
+                            command=lambda: load_page_calendar(),
                             borderwidth=0)
     play_button.place(relx=0.768, rely=0.55, anchor='center')
 
@@ -118,10 +103,6 @@ def last_week():
 def refresh_timetable():
     timetable_frame.destroy()
     load_page_calendar()
-
-
-# create list to store which time slots where clicked
-clicked_timeslots = []
 
 
 # define what happens when a timeslot button is clicked, (transfer the text of the clicked button)
@@ -175,19 +156,14 @@ def sort_clicked_timeslots():
     buttons_string = ", ".join(sorted_buttons)
 
 
-# destroy the Calendar page and open the Personal Data Page
-def press_start_page_persdata():
-    clear_widgets(root)
-    load_page_persdata()
-
-
 # load the Calendar Page
-# in a later version the booking data will be stored in a database, and the already booked timeslots will be displayed
-# in a different color, and will not be selectable,
-# this is not implemented here, because it is outside my current knowledge
+# once the mvp will be developed, the booking data will be stored in a database,
+# and the already booked timeslots will be displayed in a different color and will not be selectable
 def load_page_calendar():
     # retrieve the variable, to change it inside this function
     global calendar_week, timetable_frame
+
+    clear_widgets(root)
 
     # header
     header_label = tk.Label(root, text='Please select a week and then up to 5 timeslots '
@@ -383,7 +359,7 @@ def load_page_calendar():
     # continue button
     enter_page_persdata_button = tk.Button(root, text='Continue', font=font_heading2,
                                            bg=button_cta_color, fg=font_color,
-                                           relief=tk.RAISED, borderwidth=5, command=lambda: press_start_page_persdata())
+                                           relief=tk.RAISED, borderwidth=5, command=lambda: load_page_persdata())
     enter_page_persdata_button.place(relx=0.8, rely=0.85, relwidth=0.2, relheight=0.08, anchor='n')
 
 
@@ -533,12 +509,6 @@ def load_page_persdata():
     page_persdata_enter_button.place(relx=0.8, rely=0.85, relwidth=0.2, relheight=0.08, anchor='n')
 
 
-# destroy the Confirmation Data page and open the End Page
-def press_start_page_end():
-    clear_widgets(root)
-    load_page_end()
-
-
 # load the Confirmation Page
 def load_page_confirmation():
     # retrieve the variables, to change them inside this function
@@ -625,9 +595,9 @@ def load_page_confirmation():
     # widgets
     cancel_button = tk.Button(root, text='Cancel', command=lambda: root.quit(),
                               font=font_heading2, bg=button_color, fg=font_color)
-    restart_button = tk.Button(root, text='Restart', command=lambda: press_start_page_calendar(),
+    restart_button = tk.Button(root, text='Restart', command=lambda: load_page_calendar(),
                                font=font_heading2, bg=button_color, fg=font_color)
-    confirm_button = tk.Button(root, text='Confirm', command=lambda: press_start_page_end(),
+    confirm_button = tk.Button(root, text='Confirm', command=lambda: load_page_end(),
                                font=font_heading2, bg=button_cta_color, fg=font_color)
     # layout
     cancel_button.place(relx=0.2, rely=0.85, relwidth=0.2, relheight=0.08, anchor='n')
@@ -637,6 +607,8 @@ def load_page_confirmation():
 
 # load the End Page
 def load_page_end():
+    clear_widgets(root)
+
     end_frame = tk.Frame(root)
     end_frame.pack(expand=True, fill='both')
     # load the image
@@ -670,7 +642,7 @@ def load_page_end():
 
     # a confirmation Email with the booking overview should be sent at that moment
     # to the user and to the Video Studio staff, which is not implemented here,
-    # because it is outside my current knowledge
+    # because I don´t have an email address for this purpose
 
 
 # initialize Website
