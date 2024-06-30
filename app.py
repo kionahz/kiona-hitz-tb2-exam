@@ -20,7 +20,7 @@ font_heading2 = 'arial 15 bold'
 font_text = 'arial 15'
 
 # definition of global data variables, to ensure that the variables can be changed inside of functions
-# get the current week as an integer
+# get the current week and monday of that week
 today = date.today()
 calendar_week = int(today.strftime("%W"))
 monday = today - timedelta(days=today.weekday())
@@ -417,9 +417,6 @@ def load_page_persdata():
 
     clear_widgets(root)
 
-    # create the Personal Data Page frame
-    # page_persdata = tk.Frame(root, bg=bg_color)
-    # page_persdata.place(x=0, y=0, relwidth=1, relheight=1)
     # header
     header_label = tk.Label(root, text='Please enter your Personal Information here',
                             font=font_heading1, bg=bg_color, fg=font_color)
@@ -516,9 +513,6 @@ def load_page_confirmation():
     # retrieve the variables, to change them inside this function
     global firstname, lastname, email, library, address, birthday, calendar_week, buttons_string
 
-    # Confirmation Page frame
-    # page_confirmation = tk.Frame(root, bg=bg_color)
-    # page_confirmation.place(x=0, y=0, relwidth=1, relheight=1)
     # header
     header_label = tk.Label(root, text=f'Thank you {firstname}\n Please check your reservation',
                             font=font_heading1, bg=bg_color, fg=font_color)
@@ -660,8 +654,7 @@ root.minsize(900, 530)
 # close the window with escape
 root.bind('<Escape>', lambda event: root.quit())
 
-# create Welcome page frame
-# page_welcome = tk.Frame(root)
+# create the welcome page
 # load the image
 videostudio_img = Image.open('images/camera-right.png')
 # resize the image
@@ -674,7 +667,7 @@ videostudio_label = tk.Label(root, image=videostudio_pic)
 videostudio_label.pack(expand=True, fill='both')
 # root.pack(expand=True, fill='both')
 
-# load the Welcome Page
+# load the rest of the widgets for the Welcome Page
 load_page_welcome()
 
 # execute the code
